@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="J'étais là 95 — une expérience anonyme de mots, de lieux et de mémoire.">
+<meta name="theme-color" content="#000000">
+<title>J'étais là 95 — README.EXE</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:#000;color:#c9c9c9;
+  font-family:"Courier New",Courier,monospace;
+  font-size:15px;line-height:1.65;
+  overflow-x:hidden;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:20;
+  background:repeating-linear-gradient(to bottom,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 4px);
+  opacity:.45;
+}
+button,a{font:inherit}
+a{color:#00ff66}
+button{cursor:pointer}
+::selection{background:#00ff66;color:#000}
+
+/* BOOT */
+#boot{
+ position:fixed;inset:0;background:#000;color:#aaa;z-index:9999;
+ display:flex;align-items:center;justify-content:center;padding:25px;
+}
+.boot-box{width:min(850px,94vw)}
+.boot-title{color:#fff;font-size:clamp(16px,3vw,24px);margin-bottom:25px}
+.boot-line{min-height:25px}
+.green{color:#00ff66}.white{color:#fff}.dim{color:#666}
+.cursor{display:inline-block;width:9px;height:18px;background:#00ff66;vertical-align:-3px;animation:blink .8s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* TOP HUD */
+.hud{
+ position:fixed;top:0;left:0;right:0;z-index:100;
+ background:rgba(0,0,0,.94);
+ border-bottom:1px solid #174d2b;
+ padding:7px 12px;
+ display:flex;align-items:center;gap:12px;
+}
+.prompt{color:#00ff66;white-space:nowrap}
+.hud-right{margin-left:auto;display:flex;gap:7px;align-items:center}
+.lang{
+ background:#000;color:#00ff66;border:1px solid #00ff66;
+ padding:4px 9px;min-width:48px;
+}
+.lang:hover{background:#00ff66;color:#000}
+.status{color:#555;font-size:12px}
+
+/* SCENES */
+main{width:min(1000px,calc(100% - 28px));margin:auto}
+.scene{
+ min-height:100vh;
+ display:flex;align-items:center;
+ padding:100px 0 80px;
+ position:relative;
+}
+.scene-inner{width:100%}
+.terminal{
+ border:1px solid #174d2b;
+ background:#000;
+ box-shadow:0 0 35px rgba(0,255,102,.06);
+}
+.term-head{
+ padding:7px 10px;
+ border-bottom:1px solid #174d2b;
+ color:#777;
+ font-size:12px;
+ display:flex;justify-content:space-between;
+}
+.term-body{padding:28px}
+.cmd{color:#00ff66;margin-bottom:20px}
+.cmd:before{content:"C:\\JETAIS_LA_95> ";color:#00ff66}
+.type-area{min-height:150px}
+.reveal-line{margin:5px 0}
+.hero-title{
+ font-size:clamp(36px,8vw,82px);
+ line-height:1;
+ color:#fff;
+ margin:18px 0 24px;
+ letter-spacing:-3px;
+}
+.hero-sub{
+ font-size:clamp(16px,2.4vw,21px);
+ max-width:760px;
+}
+.prompt-box{
+ margin-top:30px;
+ padding:18px;
+ border:1px dashed #1d6637;
+ color:#777;
+}
+.scroll-hint{
+ margin-top:45px;color:#00ff66;
+ animation:pulse 1.3s ease-in-out infinite;
+}
+@keyframes pulse{50%{opacity:.3}}
+
+/* CONTENT */
+.scene-title{
+ color:#fff;font-size:clamp(25px,5vw,46px);
+ line-height:1.15;margin:10px 0 20px;
+}
+.text{max-width:800px}
+.text p{margin:12px 0}
+.quote{
+ border-left:3px solid #00ff66;
+ padding:12px 18px;
+ margin:24px 0;
+ color:#fff;
+ font-size:18px;
+}
+.meta{color:#555;font-size:12px}
+.command-output{
+ margin-top:20px;
+ padding:18px;
+ border:1px solid #123d22;
+ background:#030603;
+}
+.grid{
+ display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:25px
+}
+.card{
+ border:1px solid #174d2b;padding:18px;background:#010201
+}
+.card b{color:#00ff66}
+.big-green{
+ color:#00ff66;font-size:clamp(26px,5vw,45px);line-height:1.15
+}
+
+/* FINAL */
+.final{
+ min-height:100vh;display:flex;align-items:center;
+ padding:100px 0 80px;
+}
+.final-box{text-align:center;width:100%}
+.final-question{
+ color:#fff;font-size:clamp(28px,6vw,60px);
+ line-height:1.15;margin:25px auto;max-width:850px;
+}
+.launch{
+ display:inline-block;
+ margin-top:25px;
+ padding:14px 20px;
+ border:1px solid #00ff66;
+ background:#000;color:#00ff66;
+ text-decoration:none;
+ transition:.15s;
+}
+.launch:hover{background:#00ff66;color:#000;box-shadow:0 0 25px rgba(0,255,102,.2)}
+footer{
+ border-top:1px solid #174d2b;
+ padding:28px 15px 45px;
+ text-align:center;
+ color:#555;
+}
+.copyright{color:#777;margin-top:12px}
+.back{color:#00ff66;text-decoration:none;font-size:12px}
+
+/* LANGUAGE */
+[data-lang]{display:none}
+body[data-language="fr"] [data-lang="fr"]{display:block}
+body[data-language="ar"] [data-lang="ar"]{display:block}
+.inline[data-lang]{display:none!important}
+body[data-language="fr"] .inline[data-lang="fr"],
+body[data-language="ar"] .inline[data-lang="ar"]{display:inline!important}
+body[data-language="ar"]{direction:rtl}
+body[data-language="ar"] .hud{direction:rtl}
+body[data-language="ar"] .hud-right{margin-left:0;margin-right:auto}
+body[data-language="ar"] .prompt{direction:ltr}
+body[data-language="ar"] .quote{
+ border-left:0;border-right:3px solid #00ff66;
+}
+body[data-language="ar"] .term-head,
+body[data-language="ar"] .term-body{text-align:right}
+body[data-language="ar"] .cmd{text-align:left;direction:ltr}
+
+/* MOBILE */
+@media(max-width:650px){
+ body{font-size:13px}
+ .hud{padding:6px 8px}
+ .status{display:none}
+ main{width:calc(100% - 16px)}
+ .scene{padding:82px 0 55px}
+ .term-body{padding:18px 14px}
+ .hero-title{letter-spacing:-2px}
+ .grid{grid-template-columns:1fr}
+ .quote{font-size:16px}
+ .final{padding-top:85px}
+}
+</style>
+</head>
+
+<body data-language="fr">
+
+<!--
+  ============================================================
+  J'ÉTAIS LÀ 95 — PRESENTATION SITE
+  ============================================================
+  CHANGE ONLY THE URL BELOW.
+  Put here the real URL of your main J'étais là 95 website.
+  Example:
+  const PROJECT_URL = "https://username.github.io/jetais-la-95/";
+  ============================================================
+-->
+<script>
+const PROJECT_URL = "https://YOUR-GITHUB-USERNAME.github.io/YOUR-JETAIS-LA-95-REPOSITORY/";
+</script>
+
+<!-- BOOT -->
+<div id="boot">
+  <div class="boot-box">
+    <div class="boot-title">Microsoft Windows 95 — Command Prompt</div>
+    <div class="boot-line">BIOS check ................. <span class="green">OK</span></div>
+    <div class="boot-line">Memory .................... <span class="green">OK</span></div>
+    <div class="boot-line">Anonymous words ........... <span class="green">READY</span></div>
+    <div class="boot-line">Human traces .............. <span class="green">READY</span></div>
+    <div class="boot-line">Loading README.EXE ........ <span class="green">DONE</span></div>
+    <div class="boot-line" style="margin-top:18px">C:\JETAIS_LA_95&gt; <span class="cursor"></span></div>
+  </div>
+</div>
+
+<!-- HUD -->
+<header class="hud">
+  <div class="prompt">C:\JETAIS_LA_95&gt;</div>
+  <div class="hud-right">
+    <span class="status">README.EXE / ONLINE</span>
+    <button id="langBtn" class="lang" type="button">AR</button>
+  </div>
+</header>
+
+<main>
+
+<!-- 00 -->
+<section class="scene" id="top">
+  <div class="scene-inner">
+    <div class="terminal">
+      <div class="term-head">
+        <span>README.EXE</span><span>J95://01</span>
+      </div>
+      <div class="term-body">
+        <div class="cmd">boot --idea</div>
+
+        <div data-lang="fr">
+          <div class="hero-title">J'ÉTAIS LÀ 95</div>
+          <p class="hero-sub">Et si, pour une fois, nous n'avions rien à montrer de nous-mêmes ?</p>
+          <div class="prompt-box">
+            <span class="green">SYSTEM:</span> Ceci n'est pas un réseau social.<br>
+            <span class="green">SYSTEM:</span> Ceci n'est pas un profil.<br>
+            <span class="green">SYSTEM:</span> Ceci est un endroit.
+          </div>
+          <div class="scroll-hint">[ SCROLL_DOWN ] ↓</div>
+        </div>
+
+        <div data-lang="ar">
+          <div class="hero-title">J'ÉTAIS LÀ 95</div>
+          <p class="hero-sub">وماذا لو لم يكن علينا، ولو لمرة واحدة، أن نُظهر شيئًا عن أنفسنا؟</p>
+          <div class="prompt-box">
+            <span class="green">SYSTEM:</span> هذا ليس موقعًا اجتماعيًا.<br>
+            <span class="green">SYSTEM:</span> هذا ليس ملفًا شخصيًا.<br>
+            <span class="green">SYSTEM:</span> هذا مكان.
+          </div>
+          <div class="scroll-hint">[ SCROLL_DOWN ] ↓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 WHY -->
+<section class="scene" id="why">
+ <div class="scene-inner">
+  <div class="terminal">
+   <div class="term-head"><span>WHY.EXE</span><span>J95://02</span></div>
+   <div class="term-body">
+    <div class="cmd">why.exe</div>
+    <div data-lang="fr">
+      <div class="scene-title">Pourquoi ce lieu existe ?</div>
+      <div class="text">
+        <p>Nous avons créé des espaces numériques où presque tout finit par parler de nous.</p>
+        <p>Notre visage. Notre nom. Notre vie. Nos réussites. Nos opinions.</p>
+        <p>J'ai voulu essayer l'inverse : retirer autant que possible l'identité de la conversation et voir ce qui reste.</p>
+        <div class="quote">« Les mots avant celui qui les écrit. »</div>
+      </div>
+    </div>
+    <div data-lang="ar">
+      <div class="scene-title">لماذا وُجد هذا المكان؟</div>
+      <div class="text">
+        <p>لقد أنشأنا مساحات رقمية أصبح كل شيء فيها تقريبًا يتحدث عنا.</p>
+        <p>وجوهنا. أسماؤنا. حياتنا. نجاحاتنا. آراؤنا.</p>
+        <p>أردت أن أجرب العكس: أن أزيل قدر الإمكان هوية صاحب الكلام، ثم أرى ما الذي سيبقى.</p>
+        <div class="quote">« الكلمات قبل صاحبها. »</div>
+      </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 02 OCEAN -->
+<section class="scene" id="idea">
+ <div class="scene-inner">
+  <div class="terminal">
+   <div class="term-head"><span>OCEAN.EXE</span><span>J95://03</span></div>
+   <div class="term-body">
+    <div class="cmd">load --ocean-of-words</div>
+    <div data-lang="fr">
+      <div class="scene-title">Un océan de mots.</div>
+      <div class="text">
+        <p>Imaginez la Terre comme un immense océan.</p>
+        <p>Mais au lieu d'être rempli d'eau, cet océan est rempli de traces humaines.</p>
+      </div>
+    </div>
+    <div data-lang="ar">
+      <div class="scene-title">محيط من الكلمات.</div>
+      <div class="text">
+        <p>تخيل الأرض كمحيط هائل.</p>
+        <p>لكن بدلًا من الماء، هذا المحيط مملوء بآثار بشرية.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card"><b>01 / TRACE</b><br><span data-lang="fr">Une pensée, une phrase, un souvenir.</span><span data-lang="ar">فكرة، جملة، ذكرى.</span></div>
+      <div class="card"><b>02 / PLACE</b><br><span data-lang="fr">Chaque trace appartient à un endroit.</span><span data-lang="ar">كل أثر مرتبط بمكان.</span></div>
+      <div class="card"><b>03 / MEMORY</b><br><span data-lang="fr">Les traces forment une mémoire collective anonyme.</span><span data-lang="ar">الآثار تصنع ذاكرة جماعية مجهولة.</span></div>
+      <div class="card"><b>04 / UNKNOWN</b><br><span data-lang="fr">Vous ne savez pas qui a écrit.</span><span data-lang="ar">لن تعرف من كتب.</span></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 03 NOT SOCIAL -->
+<section class="scene">
+ <div class="scene-inner">
+  <div class="terminal">
+   <div class="term-head"><span>NO_SOCIAL.EXE</span><span>J95://04</span></div>
+   <div class="term-body">
+    <div class="cmd">disable --social-metrics</div>
+    <div data-lang="fr">
+      <div class="scene-title">Pas de réseau social.</div>
+      <div class="text">
+        <p>Je ne voulais pas construire une machine à attention.</p>
+        <p>Pas de profil à entretenir. Pas de followers. Pas de likes. Pas de feed infini. Pas de réputation à fabriquer.</p>
+        <p>Vous pouvez venir, lire, écrire parfois, puis repartir.</p>
+      </div>
+    </div>
+    <div data-lang="ar">
+      <div class="scene-title">ليس شبكة اجتماعية.</div>
+      <div class="text">
+        <p>لم أرد أن أبني آلة لجذب الانتباه.</p>
+        <p>لا ملف شخصي. لا متابعون. لا إعجابات. لا موجز لا نهائي. لا سمعة تحتاج إلى بنائها.</p>
+        <p>يمكنك أن تأتي، وتقرأ، وتكتب أحيانًا، ثم ترحل.</p>
+      </div>
+    </div>
+
+    <div class="command-output">
+      <div><span class="green">PROFILE</span> ........ DISABLED</div>
+      <div><span class="green">FOLLOWERS</span> ...... DISABLED</div>
+      <div><span class="green">LIKES</span> .......... DISABLED</div>
+      <div><span class="green">RANKING</span> ........ DISABLED</div>
+      <div><span class="green">ATTENTION_LOOP</span> .. DISABLED</div>
+      <div><span class="white">WORDS</span> ........... <span class="green">ENABLED</span></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 04 EXPERIMENT -->
+<section class="scene" id="experiment">
+ <div class="scene-inner">
+  <div class="terminal">
+   <div class="term-head"><span>EXPERIMENT.EXE</span><span>J95://05</span></div>
+   <div class="term-body">
+    <div class="cmd">observe --human</div>
+    <div data-lang="fr">
+      <div class="scene-title">Une petite expérience sociale.</div>
+      <div class="text">
+        <p>Que faisons-nous lorsque personne ne sait qui nous sommes ?</p>
+        <p>Que vont écrire les visiteurs ? Des souvenirs ? Des peurs ? De l'amour ? Des rêves ? Des choses absurdes ?</p>
+        <p>Je ne veux pas décider de la réponse à l'avance.</p>
+        <div class="quote">Je préfère laisser les traces parler.</div>
+      </div>
+    </div>
+    <div data-lang="ar">
+      <div class="scene-title">تجربة اجتماعية صغيرة.</div>
+      <div class="text">
+        <p>ماذا نفعل عندما لا يعرف أحد من نحن؟</p>
+        <p>ماذا سيكتب الزوار؟ ذكريات؟ مخاوف؟ حب؟ أحلام؟ أشياء عبثية؟</p>
+        <p>لا أريد أن أحدد الإجابة مسبقًا.</p>
+        <div class="quote">أفضل أن أترك الآثار تتحدث.</div>
+      </div>
+    </div>
+    <div class="command-output">
+      <div>C:\JETAIS_LA_95&gt; observe_human.exe</div>
+      <div>identity: <span class="green">UNKNOWN</span></div>
+      <div>status: <span class="green">LISTENING</span></div>
+      <div>purpose: <span class="white">SEE WHAT PEOPLE LEAVE BEHIND</span></div>
+      <div>C:\JETAIS_LA_95&gt; <span class="cursor"></span></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 05 MAP -->
+<section class="scene" id="map">
+ <div class="scene-inner">
+  <div class="terminal">
+   <div class="term-head"><span>MAP.EXE</span><span>J95://06</span></div>
+   <div class="term-body">
+    <div class="cmd">map --memory</div>
+    <div data-lang="fr">
+      <div class="scene-title">Une phrase devient un endroit.</div>
+      <div class="text">
+        <p>La carte donne aux mots une autre dimension.</p>
+        <p>Une pensée devient un point. Une mémoire devient une coordonnée. Une phrase appartient soudain à un morceau du monde.</p>
+        <div class="quote">« La carte devient une mémoire collective anonyme. »</div>
+      </div>
+    </div>
+    <div data-lang="ar">
+      <div class="scene-title">الجملة تصبح مكانًا.</div>
+      <div class="text">
+        <p>الخريطة تمنح الكلمات بُعدًا مختلفًا.</p>
+        <p>الفكرة تصبح نقطة. الذكرى تصبح إحداثية. والجملة تصبح مرتبطة بجزء من العالم.</p>
+        <div class="quote">« الخريطة تصبح ذاكرة جماعية مجهولة الهوية. »</div>
+      </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 06 REPLY -->
+<section class="scene">
+ <div class="scene-inner">
+  <div class="terminal">
+   <div class="term-head"><span>REPLY.EXE</span><span>J95://07</span></div>
+   <div class="term-body">
+    <div class="cmd">reply --without-profile</div>
+    <div data-lang="fr">
+      <div class="scene-title">Et si vous voulez répondre ?</div>
+      <div class="text">
+        <p>Il n'y a pas de bouton « répondre ».</p>
+        <p>Si une trace vous touche, vous pouvez en laisser une autre à proximité.</p>
+        <p>Quelqu'un pourra peut-être comprendre plus tard qu'une parole en a rencontré une autre.</p>
+        <div class="quote">Une réponse sans notification. Sans profil. Sans obligation.</div>
+      </div>
+    </div>
+    <div data-lang="ar">
+      <div class="scene-title">وماذا لو أردت أن تجيب؟</div>
+      <div class="text">
+        <p>لا يوجد زر «الرد».</p>
+        <p>إذا لمسك أثر ما، يمكنك أن تترك أثرًا آخر بالقرب منه.</p>
+        <p>وربما يستطيع شخص ما لاحقًا أن يفهم أن كلمةً ما التقت بكلمة أخرى.</p>
+        <div class="quote">إجابة بلا إشعار. بلا ملف شخصي. وبلا إلزام.</div>
+      </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 07 DETOX -->
+<section class="scene">
+ <div class="scene-inner">
+  <div class="terminal">
+   <div class="term-head"><span>DETOX.EXE</span><span>J95://08</span></div>
+   <div class="term-body">
+    <div class="cmd">quiet --mode</div>
+    <div data-lang="fr">
+      <div class="scene-title">Une autre manière d'être en ligne.</div>
+      <div class="text">
+        <p>Je ne prétends pas que ce projet va résoudre notre relation aux réseaux sociaux.</p>
+        <p>Mais j'aime l'idée qu'Internet puisse aussi contenir des endroits qui ne vous demandent rien.</p>
+        <div class="quote">Un endroit calme posé quelque part au milieu du bruit.</div>
+      </div>
+    </div>
+    <div data-lang="ar">
+      <div class="scene-title">طريقة أخرى للوجود على الإنترنت.</div>
+      <div class="text">
+        <p>لا أدّعي أن هذا المشروع سيحل علاقتنا بالشبكات الاجتماعية.</p>
+        <p>لكن تعجبني فكرة أن يحتوي الإنترنت أيضًا على أماكن لا تطلب منك شيئًا.</p>
+        <div class="quote">مكان هادئ موضوع في مكان ما وسط الضجيج.</div>
+      </div>
+    </div>
+    <div class="big-green">SOCIAL MEDIA DETOX<br><span class="dim">/ optional / voluntary / quiet</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 08 WHY 95 -->
+<section class="scene">
+ <div class="scene-inner">
+  <div class="terminal">
+   <div class="term-head"><span>95.EXE</span><span>J95://09</span></div>
+   <div class="term-body">
+    <div class="cmd">run --why-95</div>
+    <div data-lang="fr">
+      <div class="scene-title">Pourquoi « 95 » ?</div>
+      <div class="text">
+        <p>Windows 95 représente pour moi une époque où l'informatique avait quelque chose de plus direct, plus simple, parfois même plus naïf.</p>
+        <p>Fenêtres visibles. Boutons en relief. Bureau. Messages système.</p>
+        <p>Une vieille interface pour une question très actuelle :</p>
+        <div class="quote">« Peut-on encore créer un endroit sur Internet qui ne cherche pas à nous capturer ? »</div>
+      </div>
+    </div>
+    <div data-lang="ar">
+      <div class="scene-title">لماذا «95»؟</div>
+      <div class="text">
+        <p>يمثل Windows 95 بالنسبة لي زمنًا كانت فيه الحوسبة أكثر مباشرة وبساطة، وربما أكثر براءة.</p>
+        <p>نوافذ واضحة. أزرار بارزة. سطح مكتب. رسائل نظام.</p>
+        <p>واجهة قديمة لسؤال معاصر جدًا:</p>
+        <div class="quote">« هل ما زال بإمكاننا أن نصنع مكانًا على الإنترنت لا يحاول الاستيلاء على انتباهنا؟ »</div>
+      </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 09 FOUNDER -->
+<section class="scene" id="vision">
+ <div class="scene-inner">
+  <div class="terminal">
+   <div class="term-head"><span>MC88.TXT</span><span>J95://10</span></div>
+   <div class="term-body">
+    <div class="cmd">cat --founder</div>
+    <div data-lang="fr">
+      <div class="scene-title">Ma vision — MC88</div>
+      <div class="text">
+        <p>Je ne voulais pas créer une machine à attention.</p>
+        <p>Je voulais créer un endroit.</p>
+        <p>Un petit endroit sur Internet où l'on puisse se rappeler qu'avant les profils, les statistiques et les algorithmes, Internet était aussi un espace où des inconnus pouvaient simplement laisser quelque chose derrière eux.</p>
+        <p>Je ne sais pas si cette idée est « meilleure » que les réseaux sociaux. Ce n'est pas mon objectif.</p>
+        <p>Je veux seulement proposer une autre possibilité : <strong class="green">plus silencieuse, plus anonyme et peut-être plus humaine.</strong></p>
+        <p>Et laisser les visiteurs décider eux-mêmes de ce qu'ils en pensent.</p>
+        <div class="quote">— MC88</div>
+      </div>
+    </div>
+    <div data-lang="ar">
+      <div class="scene-title">رؤيتي — MC88</div>
+      <div class="text">
+        <p>لم أرد أن أصنع آلة لجذب الانتباه.</p>
+        <p>أردت أن أصنع مكانًا.</p>
+        <p>مكانًا صغيرًا على الإنترنت نتذكر فيه أنه قبل الملفات الشخصية والإحصائيات والخوارزميات، كان الإنترنت أيضًا مساحة يستطيع فيها الغرباء أن يتركوا شيئًا خلفهم ببساطة.</p>
+        <p>لا أعرف إن كانت هذه الفكرة «أفضل» من الشبكات الاجتماعية. وهذا ليس هدفي.</p>
+        <p>أريد فقط أن أقدم احتمالًا آخر: <strong class="green">أكثر هدوءًا، وأكثر مجهولية، وربما أكثر إنسانية.</strong></p>
+        <p>ثم أترك للزوار أن يقرروا بأنفسهم ماذا يعتقدون بشأنها.</p>
+        <div class="quote">— MC88</div>
+      </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- FINAL -->
+<section class="final" id="enter">
+ <div class="final-box">
+  <div class="terminal">
+   <div class="term-head"><span>FINAL.EXE</span><span>J95://END</span></div>
+   <div class="term-body">
+    <div class="cmd">question --final</div>
+
+    <div data-lang="fr">
+      <div class="final-question">Que dirais-tu si personne ne savait que c'était toi ?</div>
+      <p>La réponse n'a pas besoin d'être ici.</p>
+      <p>Elle peut être quelque part sur la carte.</p>
+      <a class="launch project-link" href="#">[ LAUNCH J'ÉTAIS LÀ 95 ]</a>
+    </div>
+
+    <div data-lang="ar">
+      <div class="final-question">ماذا كنت ستكتب لو لم يعرف أحد أن هذا الأثر لك؟</div>
+      <p>لا تحتاج الإجابة إلى أن تكون هنا.</p>
+      <p>يمكن أن تكون في مكان ما على الخريطة.</p>
+      <a class="launch project-link" href="#">[ ادخل إلى J'ÉTAIS LÀ 95 ]</a>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+</main>
+
+<footer>
+  <div>J'ÉTAIS LÀ 95 // README.EXE</div>
+  <div class="copyright">Copyright :mohamed005cheikh@gmail.com | by MC88</div>
+  <div style="margin-top:12px"><a class="back" href="#top">↑ TOP</a></div>
+</footer>
+
+<script>
+/* ===== BOOT ===== */
+window.addEventListener("load",function(){
+  const boot=document.getElementById("boot");
+  setTimeout(function(){
+    boot.style.transition="opacity .4s ease";
+    boot.style.opacity="0";
+    setTimeout(function(){boot.remove()},420);
+  },1200);
+});
+
+/* ===== MAIN PROJECT URL ===== */
+document.querySelectorAll(".project-link").forEach(function(link){
+  link.href=PROJECT_URL;
+  link.target="_blank";
+  link.rel="noopener noreferrer";
+});
+
+/* ===== LANGUAGE SWITCH ===== */
+const langBtn=document.getElementById("langBtn");
+
+function setLanguage(lang){
+  const ar=lang==="ar";
+  document.body.dataset.language=ar?"ar":"fr";
+  document.documentElement.lang=ar?"ar":"fr";
+  document.documentElement.dir=ar?"rtl":"ltr";
+  langBtn.textContent=ar?"FR":"AR";
+  langBtn.setAttribute("aria-label",ar?"Passer au français":"التبديل إلى العربية");
+  try{localStorage.setItem("j95_intro_language",ar?"ar":"fr")}catch(e){}
+}
+
+langBtn.addEventListener("click",function(){
+  setLanguage(document.body.dataset.language==="fr"?"ar":"fr");
+});
+
+try{
+  const saved=localStorage.getItem("j95_intro_language");
+  if(saved==="ar"||saved==="fr")setLanguage(saved);
+}catch(e){}
+
+/* ===== SCROLL-TRIGGERED TYPING =====
+   Each terminal command starts typing when its section
+   enters the viewport. It types once, then stays visible.
+*/
+const typeCommands=[
+  "boot --idea",
+  "why.exe",
+  "load --ocean-of-words",
+  "disable --social-metrics",
+  "observe --human",
+  "map --memory",
+  "reply --without-profile",
+  "quiet --mode",
+  "run --why-95",
+  "cat --founder",
+  "question --final"
+];
+
+function typeText(el,text,speed){
+  if(el.dataset.typed==="1")return;
+  el.dataset.typed="1";
+  el.textContent="";
+  let i=0;
+  function tick(){
+    if(i<text.length){
+      el.textContent+=text.charAt(i++);
+      setTimeout(tick,speed);
+    }
+  }
+  tick();
+}
+
+const commands=document.querySelectorAll(".cmd");
+commands.forEach(function(el){
+  const original=el.textContent.trim();
+  el.textContent="";
+  el.dataset.original=original;
+});
+
+const observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(!entry.isIntersecting)return;
+    const cmd=entry.target.querySelector(".cmd");
+    if(cmd){
+      typeText(cmd,cmd.dataset.original||"",35);
+    }
+    observer.unobserve(entry.target);
+  });
+},{threshold:.28});
+
+document.querySelectorAll(".scene,.final").forEach(function(scene){
+  observer.observe(scene);
+});
+</script>
+</body>
+</html>

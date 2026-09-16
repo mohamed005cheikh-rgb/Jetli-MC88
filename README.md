@@ -19,7 +19,7 @@ Vous y découvrirez, écran après écran, l'idée qui se cache derrière **J'é
 Et à la fin du parcours, une seule question vous attend. Une question à laquelle vous n'êtes pas obligé de répondre ici.
 
 ---
-
+<!-- 
 ## 📸 Un aperçu
 
 <div align="center">
@@ -45,7 +45,7 @@ Et à la fin du parcours, une seule question vous attend. Une question à laquel
 </div>
 
 ---
-
+-->
 ## ✨ Ce que vous trouverez
 
 **Un écran d'amorçage qui vous accueille.**  
